@@ -8,10 +8,12 @@ LR_Regularization_Dropout_Adam.py is a Logistic Regression model built from scra
 It is the extension of the assignment provided by Dr. Andrew Ng in his Specialization Course  
 You can use L1/L2 regularization, Relu activation for hidden layers, Sigmoid/Softmax for final layer, Dropout.
 
-For training use: L_layer_model(X, y,Output_classes, layers_dims=[X.shape[1],10,Output_classes-1], 
-                       predict_result=False,activation_type="binary", 
-                       reg_type="l2",keep_prob=0.8, mini_batch_size=64, n=1, 
-                       learning_rate = 0.002,lambd=0.01, num_epochs =500)
+For training use: 
+
+                  L_layer_model(X, y,Output_classes, layers_dims=[X.shape[1],10,Output_classes-1], 
+                               predict_result=False,activation_type="binary", 
+                               reg_type="l2",keep_prob=0.8, mini_batch_size=64, n=1, 
+                               learning_rate = 0.002,lambd=0.01, num_epochs =500)
                        
                        
 params: 
