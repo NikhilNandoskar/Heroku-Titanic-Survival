@@ -2,176 +2,16 @@
 # coding: utf-8
 
 # In[1]:
-
-
 # Imports
 import numpy as np
 import pandas as pd
-#import pickle
-#import matplotlib.pyplot as plt
+import pickle
+import matplotlib.pyplot as plt
 #get_ipython().run_line_magic('matplotlib', 'inline')
 
 
-# In[2]:
-
-
-#from sklearn.preprocessing import StandardScaler
-#from sklearn.metrics import classification_report, confusion_matrix
-
-
-# In[3]:
-
-
-"""df = pd.read_csv("Infrrd_train.csv") # Creating DataFrame
-print("DataFrame",df.shape) # Checking the dimension
-X = df.iloc[:,1:-1].values # Converting DataFrame to Numpy and ignoring "id"
-print("X",X.shape) # Checking the dimension
-y = df.iloc[:, df.shape[1]-1].values # Converting DataFrame to Numpy for Ground Truth
-#y = one_hot_encode(y,5)
-#y = y.flatten()
-print("Shape of Y",y.shape) # Checking the dimension
-
-# Testing DataFrame
-df_test = pd.read_csv("Infrrd_test.csv")
-#print(df_test.columns)
-ret_X = df_test.iloc[:,0].values # This will be used for Prediction.csv
-print("Number or rows",ret_X.shape)
-print("df_test",df_test.shape)
-
-X_test = df_test.iloc[:,1:].values
-print("X_test",X_test.shape)
-
-# Normalizing the inpu
-sc = StandardScaler() 
-X = sc.fit_transform(X)
-X_test = sc.transform(X_test)"""
-"""#Importing Data
-df_train = pd.read_csv('train.csv')
-df_test = pd.read_csv('test.csv')
-#Data Preprocessing
-#dataset = pd.concat([dataset_train, dataset_test], sort = False)
-#Drroping Unwanted Data
-df_train = df_train.drop(['Ticket', 'PassengerId','Cabin','Fare'], axis = 1 )
-df_test = df_test.drop(['Ticket','Cabin','Fare'], axis = 1 )
-
-
-# In[3]:
-
-
-print("Training DataFrame",df_train.columns)
-print("Testing DataFrame",df_test.columns)
-
-
 # In[4]:
 
-
-#Handling NaN Values
-df_train[['Embarked']] = df_train[['Embarked']].fillna(value=df_train['Embarked'].value_counts().idxmax())
-#Handling Names
-df_train['Title'] = df_train.Name.map(lambda x: x.split(',')[1].split( '.' )[0].strip())
-df_train['Title'] = df_train['Title'].replace('Mlle', 'Miss')
-df_train['Title'] = df_train['Title'].replace(['Mme','Lady','Ms'], 'Mrs')
-df_train.Title.loc[ (df_train.Title !=  'Master') & (df_train.Title !=  'Mr') & (df_train.Title !=  'Miss') 
-             & (df_train.Title !=  'Mrs')] = 'Others'
-df_train = pd.concat([df_train, pd.get_dummies(df_train['Title'])], axis=1).drop(labels=['Name'], axis=1)
-df_train = df_train.drop(['Title','Master','Miss','Mr','Mrs','Others'], axis = 1 )
-print("Training Dataframe",df_train.columns)
-
-#Handling NaN Values
-df_test[['Embarked']] = df_test[['Embarked']].fillna(value=df_test['Embarked'].value_counts().idxmax())
-#Handling Names
-df_test['Title'] = df_test.Name.map(lambda x: x.split(',')[1].split( '.' )[0].strip())
-df_test['Title'] = df_test['Title'].replace('Mlle', 'Miss')
-df_test['Title'] = df_test['Title'].replace(['Mme','Lady','Ms'], 'Mrs')
-df_test.Title.loc[ (df_test.Title !=  'Master') & (df_test.Title !=  'Mr') & (df_test.Title !=  'Miss') 
-             & (df_test.Title !=  'Mrs')] = 'Others'
-df_test = pd.concat([df_test, pd.get_dummies(df_test['Title'])], axis=1).drop(labels=['Name'], axis=1)
-df_test = df_test.drop(['Title','Master','Miss','Mr','Mrs','Others'], axis = 1 )
-print("Testing Dataframe",df_test.columns)
-#print(df_test)
-
-
-# In[5]:
-
-
-X = df_train.iloc[:, 1:].values
-y = df_train.iloc[:, 0].values
-print(np.unique(y).shape[0])
-
-X_test = df_test.iloc[:,1:].values
-passenger_id = df_test.iloc[:, 0].values.astype(int)
-
-
-# In[6]:
-
-
-from sklearn.preprocessing import Imputer
-imp_Age = Imputer(missing_values = 'NaN', strategy = 'median', axis = 0)
-imp_Age.fit(X[:, 2:3])
-X[:, 2:3] = imp_Age.transform(X[:, 2:3])
-
-# Testing Data
-imp_Age_test = Imputer(missing_values = 'NaN', strategy = 'median', axis = 0)
-imp_Age_test.fit(X_test[:, 2:3])
-X_test[:, 2:3] = imp_Age_test.transform(X_test[:, 2:3])
-
-
-# In[7]:
-
-
-#Categorical Encoding
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
-labelencoder_sex = LabelEncoder()
-X[:, 1] = labelencoder_sex.fit_transform(X[:, 1])  #Male == 1, Female == 0
-
-labelencoder_e = LabelEncoder()
-X[:, -1] = labelencoder_e.fit_transform(X[:, -1])  #S = 2, C = 0, Q = 1
-#Converting numeric values of Embarked to Binary Classifications
-onehotencoder = OneHotEncoder(categorical_features = [-1])
-X = onehotencoder.fit_transform(X).toarray()
-X = X[:, 1:]
-
-# Testing
-X_test[:, 1] = labelencoder_sex.fit_transform(X_test[:, 1])  #Male == 1, Female == 0
-
-X_test[:, -1] = labelencoder_e.fit_transform(X_test[:, -1])  #S = 2, C = 0, Q = 1
-#Converting numeric values of Embarked to Binary Classifications
-onehotencoder = OneHotEncoder(categorical_features = [-1])
-X_test = onehotencoder.fit_transform(X_test).toarray()
-X_test = X_test[:, 1:]
-"""
-
-# In[8]:
-
-
-"""#Splitting the dataset into train and test
-from sklearn.model_selection import train_test_split
-X_train, X_val, y_val, y_val = train_test_split(X, y, test_size = 0.319, random_state = 0, shuffle = False)"""
-
-
-# In[9]:
-"""
-
-print(X_test.shape)
-print(y.shape)
-
-
-# In[10]:
-
-
-#Feature Scaling
-from sklearn.preprocessing import StandardScaler
-sc = StandardScaler()
-X = sc.fit_transform(X)
-X_test = sc.transform(X_test)
-
-
-"""
-# In[4]:
-
-
-    
-    
 def initialize_parameters_deep(layer_dims, n):
     """
     This function takes the numbers of layers to be used to build our model as
@@ -664,28 +504,11 @@ def linear_backward(dZ,l_cache,keep_prob,lambd,reg_type):
         A_prev, W, b = l_cache
         m = A_prev.shape[0] # Number of training examples
         #if W.any()>0:
-        dW = np.zeros(W.shape)
-        #print(type(dW),type(W))
-        for i in range(W.shape[0]):
-            for j in range(W.shape[1]):
-                if W[i][j] > 0:
-                    dW = (1/m)*np.dot(A_prev.T,dZ) + lambd # wherever weights are positive(+)lambd from weights
-                elif W[i][j] < 0:
-                    dW = (1/m)*np.dot(A_prev.T,dZ) - lambd # wherever weights are negative(-)lambd from weights
-                else: 
-                    dW = (1/m)*np.dot(A_prev.T,dZ)         # wherever weights are zero lambd is not added weights
-                    
-        #dW[W > 0] = (1/m)*np.dot(A_prev.T,dZ) - lambd  # wherever weights are positive(+)lambd from weights
-        #print("Greater",dW)
-        #if W.any()<0: 
-            
-        #dW[W < 0] = (1/m)*np.dot(A_prev.T,dZ) + lambd  # wherever weights are negative(-)lambd from weights
-        #print("Smaller",dW)
-        #if W.any()==0:
-        #dW[W == 0] = (1/m)*np.dot(A_prev.T,dZ)         # wherever weights are zero lambd is not added weights
-        #print("Equal", dW)
+        dW_pos = (W > 0)*lambd # wherever weights are positive(+)lambd from weights
+        dW_neg = (W < 0)*-lambd # wherever weights are negative(-)lambd from weights
+        dW = (1/m)*np.dot(A_prev.T,dZ) + (dW_pos + dW_neg)
         db = (1/m)*np.sum(dZ, axis=0, keepdims=True)  # Derivative wrt Bias
-        dA_prev = np.dot(dZ,l_cache[1].T)
+        dA_prev = np.dot(dZ,W.T)
         
     assert (dA_prev.shape == A_prev.shape)
     assert (dW.shape == W.shape)
@@ -1084,7 +907,6 @@ def api_prediction(X, parameters,y,Output_classes, keep_prob,predict_result,acti
 
         predicted_class = np.argmax(AL, axis=1) # Prediction
         return predicted_class
-    
     elif activation_type=="binary":
         p = np.zeros((m,1))
         #Forward Propagation
@@ -1100,7 +922,7 @@ def api_prediction(X, parameters,y,Output_classes, keep_prob,predict_result,acti
         return p
 
 def L_layer_model(X, Y, Output_classes,layers_dims, activation_type, reg_type, keep_prob=0.5,learning_rate = 0.01, mini_batch_size = 128,n=1,lambd=0.7,
-          beta1 = 0.9, beta2 = 0.999,  epsilon = 1e-8, num_epochs = 10000, predict_result=False,print_cost = False): #lr was 0.009
+          beta1 = 0.9, beta2 = 0.999,  epsilon = 1e-8, num_epochs = 10000, predict_result=False,print_cost = True): #lr was 0.009
     """
     This function implements a L-layer neural network: 
     [LINEAR->RELU]*(L-1)->LINEAR->SIGMOID
@@ -1116,11 +938,15 @@ def L_layer_model(X, Y, Output_classes,layers_dims, activation_type, reg_type, k
     reg_type = Type of regularization to use "l1" or "l2"
     keep_prob = Percentage of neurons to be kept active 
     learning_rate = learning rate of the gradient descent update rule
-    n = 1 or 2, used foe random initialization of weights, when 
+    n = 1 or 2, used for random initialization of weights, when 
         n = 1, we get LeCun Initializer
         n = 2, we get He Initializer
     lambd = Regularization parameter, int
     num_epochs = number of epochs
+    predict_result = False while training, True when predicting the ground truth 
+                     values (False only when ground truth values are present)
+                     Must be kept False if you have ground truth values
+                     while predicting
     print_cost = if True, it prints the cost every 10 steps
     
     Returns:
@@ -1164,13 +990,13 @@ def L_layer_model(X, Y, Output_classes,layers_dims, activation_type, reg_type, k
                 t += 1
                 parameters, v, s = update_parameters_with_adam(parameters, grads, v, s, t, learning_rate, beta1, beta2,  epsilon)
 
-    """        
+            
         # Print the cost every 10 training example
         if print_cost and i % 10 == 0:
             print ("Cost after iteration %i: %f" % (i, cost))
         if print_cost and i % 10 == 0:
             costs.append(cost)
-           
+            
     # plot the cost
     plt.plot(np.squeeze(costs))
     plt.ylabel('cost')
@@ -1179,28 +1005,9 @@ def L_layer_model(X, Y, Output_classes,layers_dims, activation_type, reg_type, k
     plt.show()
     #result = parameters
     # Saving model to disk
-    """
+    
     return parameters
 
 
-
-# In[18]:
-
-#Output_classes = np.unique(y).shape[0]
-
-
-
-
-# In[19]:
-
-    
-#model = Logistic_Regression(X, y,Output_classes, layers_dims, predict_result,
-                    #activation_type, reg_type,keep_prob, mini_batch_size,
-                    #n, learning_rate,lambd, num_epochs)
-
-"""models = L_layer_model(X, y,Output_classes, layers_dims=[X.shape[1],10,Output_classes-1], 
-                       predict_result=False,activation_type="binary", 
-                       reg_type="l2",keep_prob=0.8, mini_batch_size=64, n=1, 
-                       learning_rate = 0.002,lambd=0.01, num_epochs =500)"""
 
 

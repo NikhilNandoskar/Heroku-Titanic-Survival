@@ -153,28 +153,6 @@ with open(model_to_pickle, 'wb') as file:
 
 
 
-# In[21]:
-
-
-#with open(model_to_pickle, 'rb') as file:
- #   pickled_model = pickle.load(file)
-
-#print(pickled_model)
 
 
 
-# In[22]:
-"""
-predictions = predict(X_test, pickled_model, passenger_id,
-                  Output_classes,keep_prob=1,predict_result=False, 
-                  activation_type="binary" ,flags="predict_y")
-
-features = np.array([ 3.25137334, -1.62380254,  0.82737724,  0.73769513,  0.39488658,
-       -0.4745452 , -0.47367361])
-
-features = features.reshape((1,features.shape[0]))
-
-api_predictions = api_prediction(features,pickled_model, passenger_id,
-                  Output_classes,keep_prob=1,predict_result=False, 
-                  activation_type="binary" ,flags="predict_y")
-"""
