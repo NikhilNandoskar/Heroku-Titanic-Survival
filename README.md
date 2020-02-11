@@ -44,4 +44,4 @@ Following are the steps to be followed:
 4) Using command prompt run the command “flask run” to check if the model is working on web(local machine).
 5) Generate requirement.txt file which lets the Heroku know what are the dependencies and requirements for the project. 
    Also, Procfile is required which tells Heroku what kind of app we are trying to run and how to serve it to the end user.
-6) Links to Heroku api: https://ml-titanic-survival-api.herokuapp.com/
+6) Link to Heroku api: https://ml-titanic-survival-api.herokuapp.com/
